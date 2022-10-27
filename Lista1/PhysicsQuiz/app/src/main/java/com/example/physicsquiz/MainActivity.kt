@@ -14,11 +14,17 @@ class MainActivity : AppCompatActivity() {
     private val questions: List<Question> = Questions.questions
     private var currentQuestionId: Int = 0
     private var score: Int = 0
+    private var cheatCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setQuestion()
+
+        if (savedInstanceState != null) {
+            score = savedInstanceState.getString("score")?.toInt()!!
+            cheatCount = savedInstanceState.getString("cheatCount")?.toInt()!!
+        }
 
         falseButton.setOnClickListener {
             submitAnswer(false)
@@ -26,6 +32,12 @@ class MainActivity : AppCompatActivity() {
         trueButton.setOnClickListener {
             submitAnswer(true)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("score", score.toString())
+        outState.putString("cheatCount", cheatCount.toString())
     }
 
     private fun setQuestion() {
