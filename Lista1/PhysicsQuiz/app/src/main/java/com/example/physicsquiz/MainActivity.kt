@@ -1,8 +1,6 @@
 package com.example.physicsquiz
 
 import android.content.Intent
-import android.content.Intent.CATEGORY_BROWSABLE
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -44,11 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startCheatActivity(view: View) {
         score -= 15
-        val url = "https://www.google.com/"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-            addCategory(CATEGORY_BROWSABLE)
-        }
-        if (intent.resolveActivity(packageManager) != null)
-            startActivity(intent)
+        val intent = Intent(this, CheatActivity::class.java)
+        startActivity(intent)
     }
 }
