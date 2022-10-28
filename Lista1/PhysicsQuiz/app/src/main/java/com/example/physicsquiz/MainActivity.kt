@@ -54,23 +54,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun submitAnswer(givenAnswer: Boolean) {
+        processAnswer(givenAnswer)
         if (isQuizFinished())
-            showSummary()
-        else {
-            score += if (currentQuestion.answer == givenAnswer) 10 else 0
-            correctAnswerCount += if (currentQuestion.answer == givenAnswer) 1 else 0
-            currentQuestionId++
+            setSummary()
+        else
             setQuestion()
-        }
     }
 
     private fun isQuizFinished(): Boolean {
-        return currentQuestionId == questions.size - 1
+        return currentQuestionId > questions.size - 1
     }
 
-    private fun showSummary() {
+    private fun processAnswer(givenAnswer: Boolean) {
+        if (isQuizFinished()) return
+        score += if (currentQuestion.answer == givenAnswer) 10 else 0
+        correctAnswerCount += if (currentQuestion.answer == givenAnswer) 1 else 0
+        currentQuestionId++
+    }
+
+    private fun setSummary() {
         questionText.text = String.format(
-            "You have answered correctly %s times to gain a score of %s\nmeanwhile using the cheat button %s times.",
+            "You have answered correctly %s times to gain a score of %s\nand using the cheat button %s times.",
             correctAnswerCount.toString(),
             score.toString(),
             cheatCount.toString()
