@@ -24,8 +24,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState != null) {
-            cheatCount = savedInstanceState.getString("cheatCount")?.toInt()!!
-            score = savedInstanceState.getString("score")?.toInt()!!
+            currentQuestionId = savedInstanceState.getInt("currentQuestionId")
+            score = savedInstanceState.getInt("score")
+            cheatCount = savedInstanceState.getInt("cheatCount")
+            correctAnswerCount = savedInstanceState.getInt("correctAnswerCount")
         }
 
         setQuestion()
@@ -36,6 +38,14 @@ class MainActivity : AppCompatActivity() {
         trueButton.setOnClickListener {
             submitAnswer(true)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("currentQuestionId", currentQuestionId)
+        outState.putInt("score", score)
+        outState.putInt("cheatCount", cheatCount)
+        outState.putInt("correctAnswerCount", correctAnswerCount)
     }
 
     private fun setQuestion() {
@@ -72,5 +82,7 @@ class MainActivity : AppCompatActivity() {
             putExtra(EXTRA_MESSAGE, currentQuestion.answer)
         }
         startActivity(intent)
+        cheatCount++
+        score -= 15
     }
 }

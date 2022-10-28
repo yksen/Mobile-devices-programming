@@ -11,8 +11,6 @@ class CheatActivity : AppCompatActivity() {
     private val answerText: TextView by lazy { findViewById(R.id.textViewAnswer) }
 
     private var answer: Boolean = false
-    private var score: Int = 0
-    private var cheatCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +18,6 @@ class CheatActivity : AppCompatActivity() {
 
         answer = intent.getBooleanExtra(EXTRA_MESSAGE, false)
         setAnswer()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("cheatCount", cheatCount.toString())
-        outState.putString("score", score.toString())
     }
 
     private fun setAnswer() {
@@ -41,8 +33,6 @@ class CheatActivity : AppCompatActivity() {
         }
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
-            score -= 15
-            cheatCount++
         }
     }
 }
