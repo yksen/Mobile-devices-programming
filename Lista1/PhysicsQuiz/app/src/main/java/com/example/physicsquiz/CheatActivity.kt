@@ -23,7 +23,7 @@ class CheatActivity : AppCompatActivity() {
     private fun setAnswer() {
         answerText.text =
             String.format(
-                "The correct answer is ", answer.toString().replaceFirstChar { it.uppercase() })
+                "The correct answer is %s", answer.toString().replaceFirstChar { it.uppercase() })
     }
 
     fun browseForAnswer(view: View) {
