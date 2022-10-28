@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 
+const val EXTRA_MESSAGE = "physicsquiz.MESSAGE"
+
 class MainActivity : AppCompatActivity() {
     private val trueButton: Button by lazy { findViewById(R.id.buttonTrue) }
     private val falseButton: Button by lazy { findViewById(R.id.buttonFalse) }
@@ -13,18 +15,20 @@ class MainActivity : AppCompatActivity() {
 
     private val questions: List<Question> = Questions.questions
     private var currentQuestionId: Int = 0
+    private var currentQuestion: Question = questions[currentQuestionId]
     private var score: Int = 0
     private var cheatCount: Int = 0
+    private var correctAnswerCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setQuestion()
-
         if (savedInstanceState != null) {
-            score = savedInstanceState.getString("score")?.toInt()!!
             cheatCount = savedInstanceState.getString("cheatCount")?.toInt()!!
+            score = savedInstanceState.getString("score")?.toInt()!!
         }
+
+        setQuestion()
 
         falseButton.setOnClickListener {
             submitAnswer(false)
@@ -34,27 +38,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("score", score.toString())
-        outState.putString("cheatCount", cheatCount.toString())
-    }
-
     private fun setQuestion() {
-        val currentQuestion = questions[currentQuestionId]
+        currentQuestion = questions[currentQuestionId]
         questionText.text = currentQuestion.content
     }
 
     private fun submitAnswer(givenAnswer: Boolean) {
-        val currentQuestion = questions[currentQuestionId]
-        score += if (currentQuestion.answer == givenAnswer) 10 else 0
-        currentQuestionId++
-        setQuestion()
+        if (isQuizFinished())
+            showSummary()
+        else {
+            score += if (currentQuestion.answer == givenAnswer) 10 else 0
+            correctAnswerCount += if (currentQuestion.answer == givenAnswer) 1 else 0
+            currentQuestionId++
+            setQuestion()
+        }
+    }
+
+    private fun isQuizFinished(): Boolean {
+        return currentQuestionId == questions.size - 1
+    }
+
+    private fun showSummary() {
+        questionText.text = String.format(
+            "You have answered correctly %s times to gain a score of %s\nmeanwhile using the cheat button %s times.",
+            correctAnswerCount.toString(),
+            score.toString(),
+            cheatCount.toString()
+        )
     }
 
     fun startCheatActivity(view: View) {
-        score -= 15
-        val intent = Intent(this, CheatActivity::class.java)
+        val intent = Intent(this, CheatActivity::class.java).apply {
+            putExtra(EXTRA_MESSAGE, currentQuestion.answer)
+        }
         startActivity(intent)
     }
 }

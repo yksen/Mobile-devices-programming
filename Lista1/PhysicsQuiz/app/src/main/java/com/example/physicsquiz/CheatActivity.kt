@@ -5,8 +5,12 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 
 class CheatActivity : AppCompatActivity() {
+    private val answerText: TextView by lazy { findViewById(R.id.textViewAnswer) }
+
+    private var answer: Boolean = false
     private var score: Int = 0
     private var cheatCount: Int = 0
 
@@ -14,16 +18,20 @@ class CheatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cheat)
 
-        if (savedInstanceState != null) {
-            score = savedInstanceState.getString("score")?.toInt()!!
-            cheatCount = savedInstanceState.getString("cheatCount")?.toInt()!!
-        }
+        answer = intent.getBooleanExtra(EXTRA_MESSAGE, false)
+        setAnswer()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("score", score.toString())
         outState.putString("cheatCount", cheatCount.toString())
+        outState.putString("score", score.toString())
+    }
+
+    private fun setAnswer() {
+        answerText.text =
+            String.format(
+                "The correct answer is ", answer.toString().replaceFirstChar { it.uppercase() })
     }
 
     fun browseForAnswer(view: View) {
