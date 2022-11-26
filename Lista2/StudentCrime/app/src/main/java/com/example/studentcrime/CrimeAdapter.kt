@@ -7,21 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.random.Random
-import kotlin.random.nextInt
 
 class CrimeAdapter : RecyclerView.Adapter<CrimeAdapter.CrimeViewHolder>() {
 
-    private val crimeList by lazy {
-        List(20) {
-            Crime(
-                "Crime #$it",
-                "Description of crime #$it",
-                Random.nextInt(),
-                Random.nextBoolean()
-            )
-        }
-    }
+    private val crimeList: List<Crime> = Crimes.crimes
 
     class CrimeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val crimeTitle: TextView = itemView.findViewById(R.id.crimeTitleView)
