@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ListViewHolder>() {
@@ -27,6 +28,10 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ListViewHol
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val list = exerciseLists[position]
         holder.listTitle.text = list.title
+        holder.itemView.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToDetailFragment()
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
 }
