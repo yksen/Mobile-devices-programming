@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.listRecyclerView.adapter = ListAdapter()
+        binding.listRecyclerView.adapter = ExerciseListAdapter()
     }
 
 }
