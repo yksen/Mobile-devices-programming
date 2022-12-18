@@ -23,8 +23,8 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.listRecyclerView.adapter = ExerciseListAdapter((activity as MainActivity).exerciseLists)
+        binding.exerciseRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.exerciseRecyclerView.adapter = ExerciseAdapter(Exercises.exercises)
     }
 
 }

@@ -21,7 +21,7 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.listInfo.text = "Exercise info"
+
     }
 
 }

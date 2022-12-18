@@ -1,6 +1,6 @@
 package com.example.studenthardlife
 
-class ExerciseList(
+class Exercise(
     val title: String,
-    val exercises: List<String>
+    val info: String
 )
