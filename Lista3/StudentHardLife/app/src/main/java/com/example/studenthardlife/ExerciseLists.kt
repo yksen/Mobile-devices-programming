@@ -1,7 +1,7 @@
 package com.example.studenthardlife
 
 object ExerciseLists {
-    val lists: List<ExerciseList> = List(5)
+    val lists: MutableList<ExerciseList> = MutableList(5)
     { outer_it ->
         ExerciseList(
             "List #$outer_it",

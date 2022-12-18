@@ -6,6 +6,8 @@ import com.example.studenthardlife.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    val exerciseLists: MutableList<ExerciseList> = ExerciseLists.lists
+
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
