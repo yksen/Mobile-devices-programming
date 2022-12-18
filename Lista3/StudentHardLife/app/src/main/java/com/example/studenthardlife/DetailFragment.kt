@@ -1,5 +1,6 @@
 package com.example.studenthardlife
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -24,7 +25,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,18 +33,18 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val exercises: MutableList<Exercise> = getExerciseList(requireContext()).toMutableList()
+        val exercises: MutableList<Exercise> = getExercisesList(requireContext()).toMutableList()
 
         binding.exerciseInfo.text = Editable.Factory.getInstance().newEditable(
             exercises[currentExerciseIndex].info
         )
         binding.saveButton.setOnClickListener {
             exercises[currentExerciseIndex].info = binding.exerciseInfo.text.toString()
-            saveExerciseList(requireContext(), exercises)
+            saveExercisesList(requireContext(), exercises)
         }
         binding.deleteButton.setOnClickListener {
             exercises.removeAt(currentExerciseIndex)
-            saveExerciseList(requireContext(), exercises)
+            saveExercisesList(requireContext(), exercises)
         }
     }
 

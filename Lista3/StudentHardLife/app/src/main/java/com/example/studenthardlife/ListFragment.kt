@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val exercises: MutableList<Exercise> = getExerciseList(requireContext()).toMutableList()
+        val exercises: MutableList<Exercise> = getExercisesList(requireContext()).toMutableList()
         binding.exerciseRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = ExerciseAdapter(exercises)
@@ -38,7 +38,7 @@ class ListFragment : Fragment() {
                         "Info\nabout\nexercise"
                     )
                 )
-                saveExerciseList(requireContext(), exercises)
+                saveExercisesList(requireContext(), exercises)
                 binding.exerciseRecyclerView.adapter?.notifyDataSetChanged()
                 binding.editTitleText.text?.clear()
             }
