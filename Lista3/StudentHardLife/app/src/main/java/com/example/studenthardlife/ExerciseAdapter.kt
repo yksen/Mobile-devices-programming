@@ -11,7 +11,7 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>) :
     RecyclerView.Adapter<ExerciseAdapter.ListViewHolder>() {
 
     class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val listTitle: TextView = itemView.findViewById(R.id.listTitle)
+        val exerciseTitle: TextView = itemView.findViewById(R.id.exerciseTitle)
     }
 
     override fun getItemCount(): Int {
@@ -25,8 +25,8 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>) :
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val list = exercises[position]
-        holder.listTitle.text = list.title
+        val exercise = exercises[position]
+        holder.exerciseTitle.text = exercise.title
         holder.itemView.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToDetailFragment()
             holder.itemView.findNavController().navigate(action)

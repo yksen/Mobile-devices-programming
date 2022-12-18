@@ -25,6 +25,13 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.exerciseRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.exerciseRecyclerView.adapter = ExerciseAdapter(Exercises.exercises)
+        binding.addButton.setOnClickListener {
+            if (binding.editTitleText.text?.isNotEmpty() == true) {
+                Exercises.exercises.add(Exercise(binding.editTitleText.text.toString(), "Description"))
+                binding.exerciseRecyclerView.adapter?.notifyDataSetChanged()
+                binding.editTitleText.text?.clear()
+            }
+        }
     }
 
 }
