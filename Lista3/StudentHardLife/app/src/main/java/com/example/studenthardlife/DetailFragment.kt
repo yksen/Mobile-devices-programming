@@ -11,11 +11,12 @@ import com.example.studenthardlife.databinding.FragmentDetailBinding
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
+    private var currentExerciseIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            (activity as MainActivity).currentExerciseIndex = it.getInt("currentExerciseIndex")
+            currentExerciseIndex = it.getInt("currentExerciseIndex")
         }
     }
 
@@ -29,15 +30,20 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val exercises: MutableList<Exercise> = getExerciseList(requireContext()).toMutableList()
+
         binding.exerciseInfo.text = Editable.Factory.getInstance().newEditable(
-            (activity as MainActivity).exercises[(activity as MainActivity).currentExerciseIndex].info
+            exercises[currentExerciseIndex].info
         )
         binding.saveButton.setOnClickListener {
-            (activity as MainActivity).exercises[(activity as MainActivity).currentExerciseIndex].info =
-                binding.exerciseInfo.text.toString()
+            exercises[currentExerciseIndex].info = binding.exerciseInfo.text.toString()
+            saveExerciseList(requireContext(), exercises)
         }
         binding.deleteButton.setOnClickListener {
-            (activity as MainActivity).exercises.removeAt((activity as MainActivity).currentExerciseIndex)
+            exercises.removeAt(currentExerciseIndex)
+            saveExerciseList(requireContext(), exercises)
         }
     }
 
