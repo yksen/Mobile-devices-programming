@@ -24,10 +24,15 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.exerciseRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.exerciseRecyclerView.adapter = ExerciseAdapter(Exercises.exercises)
+        binding.exerciseRecyclerView.adapter = ExerciseAdapter((activity as MainActivity).exercises)
         binding.addButton.setOnClickListener {
             if (binding.editTitleText.text?.isNotEmpty() == true) {
-                Exercises.exercises.add(Exercise(binding.editTitleText.text.toString(), "Description"))
+                (activity as MainActivity).exercises.add(
+                    Exercise(
+                        binding.editTitleText.text.toString(),
+                        "Description"
+                    )
+                )
                 binding.exerciseRecyclerView.adapter?.notifyDataSetChanged()
                 binding.editTitleText.text?.clear()
             }
