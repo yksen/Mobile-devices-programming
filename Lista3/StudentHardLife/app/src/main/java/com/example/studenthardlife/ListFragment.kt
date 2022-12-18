@@ -35,7 +35,8 @@ class ListFragment : Fragment() {
                 exercises.add(
                     Exercise(
                         binding.editTitleText.text.toString(),
-                        "Info\nabout\nexercise"
+                        "Info\nabout\nexercise",
+                        ""
                     )
                 )
                 saveExercisesList(requireContext(), exercises)

@@ -30,6 +30,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var pictureAbsolutePath: Uri
+    private lateinit var exercises: MutableList<Exercise>
     private var currentExerciseIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +52,12 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val exercises: MutableList<Exercise> = getExercisesList(requireContext()).toMutableList()
+        exercises = getExercisesList(requireContext()).toMutableList()
 
         binding.exerciseInfo.text = Editable.Factory.getInstance().newEditable(
             exercises[currentExerciseIndex].info
         )
+        binding.imageView.setImageURI(Uri.parse(exercises[currentExerciseIndex].picture))
         binding.saveButton.setOnClickListener {
             exercises[currentExerciseIndex].info = binding.exerciseInfo.text.toString()
             saveExercisesList(requireContext(), exercises)
@@ -76,6 +78,7 @@ class DetailFragment : Fragment() {
                 val imageBitmap = data?.extras?.get("data") as Bitmap
                 binding.imageView.setImageBitmap(imageBitmap)
                 pictureAbsolutePath = saveImage(imageBitmap)
+                exercises[currentExerciseIndex].picture = pictureAbsolutePath.toString()
             }
         }
 
@@ -100,16 +103,12 @@ class DetailFragment : Fragment() {
 
     private fun openCamera() {
         when {
-            ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.CAMERA
-            ) ==
-                    PackageManager.PERMISSION_GRANTED -> {
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
                 launchCamera()
             }
             ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(),
-                Manifest.permission.CAMERA
-            ) -> {
+                requireActivity(), Manifest.permission.CAMERA) -> {
                 showMessageOKCancel(getString(R.string.rationale_camera))
             }
             else -> {
