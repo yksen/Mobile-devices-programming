@@ -1,21 +1,21 @@
-package com.example.restcountriesapp.fragment.capitals
+package com.example.restcountriesapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.restcountriesapp.databinding.FragmentCapitalsBinding
+import com.example.restcountriesapp.databinding.FragmentFlagsBinding
 
-class CapitalsFragment : Fragment() {
-    private lateinit var binding: FragmentCapitalsBinding
+class FlagsFragment : Fragment() {
+    private lateinit var binding: FragmentFlagsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCapitalsBinding.inflate(inflater, container, false)
+        binding = FragmentFlagsBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
