@@ -1,4 +1,4 @@
-package com.example.restcountriesapp
+package com.example.restcountriesapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.restcountriesapp.R
 import com.example.restcountriesapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

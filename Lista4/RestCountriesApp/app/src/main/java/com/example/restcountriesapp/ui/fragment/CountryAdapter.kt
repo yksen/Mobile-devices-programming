@@ -1,4 +1,4 @@
-package com.example.restcountriesapp.fragment
+package com.example.restcountriesapp.ui.fragment
 
 import android.net.Uri
 import android.view.LayoutInflater
