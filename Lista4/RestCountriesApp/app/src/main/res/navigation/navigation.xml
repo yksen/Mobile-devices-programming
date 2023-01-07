@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/capitalsFragment"
-        android:name="com.example.restcountriesapp.fragment.CapitalsFragment"
+        android:name="com.example.restcountriesapp.ui.fragment.CapitalsFragment"
         android:label="CapitalsFragment"
         tools:layout="@layout/fragment_capitals" />
     <fragment
         android:id="@+id/flagsFragment"
-        android:name="com.example.restcountriesapp.fragment.FlagsFragment"
+        android:name="com.example.restcountriesapp.ui.fragment.FlagsFragment"
         android:label="FlagsFragment"
         tools:layout="@layout/fragment_flags" />
 
