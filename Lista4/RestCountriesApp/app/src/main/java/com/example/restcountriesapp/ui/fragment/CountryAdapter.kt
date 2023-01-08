@@ -1,45 +1,50 @@
 package com.example.restcountriesapp.ui.fragment
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.restcountriesapp.R
+import com.bumptech.glide.Glide
+import com.example.restcountriesapp.databinding.ItemCountryBinding
 import com.example.restcountriesapp.model.Country
 
-class CountryAdapter(private val countries: List<Country>, val showFlags: Boolean) :
-    RecyclerView.Adapter<CountryAdapter.ListViewHolder>() {
+class CountryAdapter(countryComparator: CountryComparator, private val showFlags: Boolean) :
+    ListAdapter<Country, CountryAdapter.CountryViewHolder>(countryComparator) {
 
-    class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val countryName: TextView = itemView.findViewById(R.id.countryName)
-        val countryCapital: TextView = itemView.findViewById(R.id.countryCapital)
-        val countryFlag: ImageView = itemView.findViewById(R.id.countryFlag)
+    class CountryViewHolder(private val binding: ItemCountryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(country: Country, showFlags: Boolean) {
+            binding.apply {
+                countryName.text = country.name.common
+                countryCapital.text =
+                    if (country.capital.isNotEmpty()) country.capital.first() else "No capital"
+                if (showFlags) {
+                    Glide.with(binding.root)
+                        .load(country.flags.png)
+                        .into(countryFlag)
+                    countryFlag.visibility = View.VISIBLE
+                    countryCapital.visibility = View.GONE
+                } else {
+                    countryFlag.visibility = View.GONE
+                    countryCapital.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return countries.size
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        return CountryViewHolder(
+            ItemCountryBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val country = countries[position]
-        holder.countryName.text = country.name
-        holder.countryCapital.text = country.capital
-
-        if (showFlags) {
-            holder.countryFlag.visibility = View.VISIBLE
-            holder.countryCapital.visibility = View.GONE
-        } else {
-            holder.countryFlag.visibility = View.GONE
-            holder.countryCapital.visibility = View.VISIBLE
-        }
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+        val country = getItem(position)
+        holder.bind(country, showFlags)
     }
 }

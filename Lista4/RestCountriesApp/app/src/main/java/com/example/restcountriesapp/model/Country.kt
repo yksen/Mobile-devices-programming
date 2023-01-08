@@ -1,12 +1,17 @@
 package com.example.restcountriesapp.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+class CountryResponse : ArrayList<Country>()
 
-@Entity(tableName = "countries")
 data class Country(
-    @PrimaryKey
-    val name: String,
-    val capital: String,
-    val flag: String
+    val capital: List<String>,
+    val flags: Flags,
+    val name: Name
+)
+
+data class Flags(
+    val png: String
+)
+
+data class Name(
+    val common: String
 )

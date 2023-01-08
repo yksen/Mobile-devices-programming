@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         binding.bottomNavView.setupWithNavController(navController)
     }
 }
